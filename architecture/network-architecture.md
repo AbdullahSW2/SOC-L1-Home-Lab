@@ -81,13 +81,26 @@ The intended monitoring workflow is:
 
 The log collection and ingestion mechanism will be documented after verification.
 
-## 7. Next Steps
 
-- Verify access to the Splunk web interface.
-- Identify the Windows log collection method.
-- Confirm Windows security events are indexed in Splunk.
-- Create and test SPL detection queries.
-- Document security investigations with supporting evidence.
+## 7. Implementation Progress
+
+### Completed
+
+- [x] Configure three virtual machines in VirtualBox.
+- [x] Connect all systems to the SOC Lab NAT Network.
+- [x] Verify bidirectional connectivity (6/6 tests passed).
+- [x] Access Splunk Enterprise on Ubuntu.
+- [x] Query Windows authentication events (4624 and 4625).
+- [x] Create and document SPL detection queries.
+- [x] Document the first SOC L1 investigation.
+
+### Remaining Work
+
+- [ ] Verify and document the Windows log forwarding mechanism.
+- [ ] Validate end-to-end event ingestion.
+- [ ] Create Splunk dashboards and alert rules.
+- [ ] Investigate additional Windows security events.
+- [ ] Expand incident investigation scenarios.
 
 ## 8. Disclaimer
 
