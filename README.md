@@ -98,6 +98,22 @@ This query identifies failed authentication events grouped by account and source
 
 [View All Detection Queries](detections/windows-authentication-detection.md)
 
+
+## Lab Evidence
+
+### Failed Windows Authentication Attempts
+
+![Failed Login Detection](screenshots/Failed%20Login%20Detection.png)
+
+### Authentication Activity by Source IP
+
+![Authentication Timeline](screenshots/Authentication-Timeline-By-Source-IP.png)
+
+### Successful vs Failed Logins
+
+![Login Comparison](screenshots/Login%20Success%20Failure%20Comparison.png)
+
+
 ## Investigation Evidence
 
 Screenshots of network connectivity tests and Splunk authentication analysis are available in the repository.
