@@ -43,22 +43,13 @@ Serves as the target endpoint for security testing and Windows event log generat
 Hosts the Splunk environment used for centralized security monitoring, event analysis, and investigation.
 
 ## 4. Network Topology
-
-```text
-             Oracle VirtualBox
-                    |
-           SOC Lab NAT Network
-             192.168.100.0/24
-                    |
-       +------------+------------+
-       |            |            |
-   Kali Linux    Windows 10    Ubuntu
- 192.168.100.4 192.168.100.50 192.168.100.5
-   Attacker       Target       Splunk Server
+```mermaid
+flowchart TB
+    V[Oracle VirtualBox] --> N[SOC Lab - NAT Network<br/>192.168.100.0/24]
+    N --> K[Kali Linux<br/>192.168.100.4]
+    N --> W[Windows 10<br/>192.168.100.50]
+    N --> U[Ubuntu + Splunk<br/>192.168.100.5]
 ```
-
-All virtual machines are connected to the same NAT Network.
-
 ## 5. Connectivity Verification
 
 ICMP connectivity was tested between all three virtual machines.
