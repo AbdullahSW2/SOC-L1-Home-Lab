@@ -1,50 +1,141 @@
 # SOC Level 1 Home Lab
 
-## Overview
+### Security Monitoring | Threat Detection | Incident Investigation | Splunk SIEM
 
-This project documents the development of a hands-on Security Operations Center (SOC) Level 1 home lab designed to practice security monitoring, log analysis, threat detection, and incident investigation.
+A hands-on Security Operations Center (SOC) Level 1 project focused on building a virtualized security monitoring environment, analyzing Windows authentication events, and documenting security investigations using Splunk Enterprise.
 
-The lab uses multiple virtual machines running on Oracle VirtualBox, with Splunk as the central platform for analyzing security events.
+**Project Status:** Active Development
 
-**Project Status:** In Progress
+---
 
-## Lab Environment
+## Project Overview
 
-| Component | Purpose |
-|---|---|
-| Oracle VirtualBox | Virtualization platform |
-| Kali Linux | Controlled attack simulation |
-| Windows 10 | Target machine and security event generation |
-| Ubuntu Linux | Security monitoring and analysis environment |
-| Splunk | Log analysis, security event monitoring, and investigation |
+This project demonstrates practical SOC Analyst Level 1 skills through a virtualized cybersecurity lab built using Oracle VirtualBox.
 
-## Project Objectives
+The environment includes Kali Linux for authorized security testing, Windows 10 as the monitored endpoint, and Ubuntu Linux hosting Splunk Enterprise for security event analysis.
 
-- Build an isolated cybersecurity testing environment.
-- Collect and analyze Windows security event logs.
-- Practice threat detection using Splunk Search Processing Language (SPL).
-- Investigate suspicious authentication and system activity.
-- Document security findings and investigation procedures.
-- Develop practical SOC Analyst Level 1 skills.
+The project focuses on developing skills in log analysis, authentication monitoring, security investigation, and technical documentation.
 
 ## Lab Architecture
 
-Network diagrams and lab configuration details will be added as the project progresses.
+| System | IP Address | Role |
+|---|---|---|
+| Kali Linux | 192.168.100.4 | Authorized security testing |
+| Windows 10 | 192.168.100.50 | Monitored endpoint |
+| Ubuntu Linux | 192.168.100.5 | Splunk SIEM server |
 
-## Detection and Investigation Scenarios
+**Virtualization:** Oracle VirtualBox  
+**Network:** SOC Lab – NAT Network  
+**Subnet:** 192.168.100.0/24
 
-Planned scenarios include:
+All three virtual machines are connected through the same NAT Network.
 
-1. Failed login attempt detection.
-2. Brute-force authentication pattern analysis.
-3. Suspicious PowerShell activity monitoring.
-4. Windows security event investigation.
-5. Security alert triage and incident documentation.
+Six bidirectional ICMP connectivity tests were completed successfully with 0% packet loss.
 
-## Documentation
+[View Network Architecture](architecture/network-architecture.md)
 
-This repository will contain lab setup instructions, architecture diagrams, Splunk queries, investigation reports, and screenshots demonstrating completed exercises.
+## Tools & Technologies
 
-## Disclaimer
+| Technology | Application |
+|---|---|
+| Splunk Enterprise 10.6.1.1 | SIEM and log analysis |
+| Splunk SPL | Security event searching and correlation |
+| Oracle VirtualBox | Virtualization |
+| Kali Linux | Controlled security testing |
+| Windows 10 | Authentication event generation |
+| Ubuntu Linux | Splunk hosting and analysis |
+| Windows Security Event Logs | Authentication monitoring |
 
-All security testing is performed within an authorized, controlled virtual lab environment for educational and defensive security research purposes.
+## Practical Achievements
+
+### 1. Virtual Network Configuration
+
+Configured three virtual machines within a shared VirtualBox NAT Network and verified communication between all systems.
+
+**Result:** 6/6 connectivity tests passed.
+
+### 2. Windows Authentication Monitoring
+
+Analyzed Windows authentication events in Splunk using the `windows_logs` index.
+
+Relevant Event IDs:
+
+- **4624:** Successful Logon
+- **4625:** Failed Logon
+
+### 3. Suspicious Authentication Activity Analysis
+
+Used SPL queries to examine:
+
+- Failed authentication attempts.
+- Multiple account names associated with source IP addresses.
+- Successful versus failed logon events.
+- Authentication activity over time.
+
+In one documented four-hour search window, 312 authentication events were returned, including 23 events associated with the Kali Linux IP address.
+
+These observations are not sufficient on their own to confirm a specific attack technique or successful compromise.
+
+### 4. Security Investigation Documentation
+
+Created an initial SOC Level 1 investigation report based on observed Windows authentication activity.
+
+The report includes evidence, preliminary findings, investigation limitations, and recommended next steps.
+
+[Read Investigation 001](investigations/incident-001.md)
+
+## Splunk Detection Queries
+
+Example – Failed Windows Login Attempts:
+
+```spl
+index="windows_logs" EventCode=4625
+| stats count by Account_Name, Source_Network_Address
+| sort -count
+```
+
+This query identifies failed authentication events grouped by account and source IP.
+
+[View All Detection Queries](detections/windows-authentication-detection.md)
+
+## Investigation Evidence
+
+Screenshots of network connectivity tests and Splunk authentication analysis are available in the repository.
+
+[View Screenshots](screenshots/)
+
+## Project Documentation
+
+| Section | Description |
+|---|---|
+| [Architecture](architecture/network-architecture.md) | Network design, virtual machines, and connectivity |
+| [Setup](setup/lab-setup.md) | Infrastructure and environment configuration |
+| [Detections](detections/windows-authentication-detection.md) | Splunk SPL detection and analysis queries |
+| [Investigations](investigations/incident-001.md) | SOC Level 1 authentication investigation |
+| [Screenshots](screenshots/) | Practical lab evidence |
+
+## Skills Demonstrated
+
+- SOC Level 1 monitoring fundamentals
+- Windows Security Event Log analysis
+- Splunk Search Processing Language (SPL)
+- Authentication event investigation
+- Source IP and account activity analysis
+- Virtual network configuration
+- Security investigation documentation
+- Evidence-based incident triage
+
+## Future Development
+
+- Verify and document the Windows log forwarding mechanism.
+- Develop additional detection rules and alerts.
+- Create Splunk security monitoring dashboards.
+- Analyze additional Windows security events.
+- Expand incident investigation scenarios.
+- Improve reproducibility of the lab setup.
+
+## Security Disclaimer
+
+All activities are conducted within an authorized cybersecurity home lab for educational and defensive security research purposes.
+
+The project does not claim a confirmed compromise or production SOC deployment.
